@@ -1,0 +1,212 @@
+﻿@model List<HospitalAppointmentSystem.Models.Doctor>
+
+<style>
+
+    /* PAGE SPACING */
+    .doctors-page {
+        margin-top: 40px;
+    }
+
+    /* FILTER SIDEBAR */
+
+    .doctor-filter {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filter-item {
+        border: 1px solid #ddd;
+        padding: 10px 12px;
+        border-radius: 6px;
+        text-decoration: none;
+        color: #444;
+        transition: all 0.3s;
+        cursor: pointer;
+        font-size: 14px;
+        text-align: center;
+    }
+
+        .filter-item:hover {
+            background: #0d6efd;
+            color: white;
+            border-color: #0d6efd;
+        }
+
+    /* DOCTOR CARD */
+
+    .doctor-card {
+        border: 1px solid #C9D8FF;
+        border-radius: 12px;
+        overflow: hidden;
+        background: white;
+        transition: all 0.4s;
+        cursor: pointer;
+    }
+
+        .doctor-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+    /* IMAGE */
+
+    .doctor-img {
+        width: 100%;
+        background: #EAEFFF;
+    }
+
+    /* CARD BODY */
+
+    .doctor-info {
+        padding: 15px;
+    }
+
+    /* STATUS */
+
+    .doctor-status {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        color: green;
+    }
+
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        background: green;
+        border-radius: 50%;
+    }
+
+    /* NAME */
+
+    .doctor-name {
+        font-weight: 600;
+        margin-top: 6px;
+        color: #262626;
+    }
+
+    /* SPECIALIZATION */
+
+    .doctor-special {
+        font-size: 14px;
+        color: #5C5C5C;
+    }
+
+</style>
+
+
+<div class="container doctors-page">
+
+    <p class="text-muted">
+        Browse through the doctors specialist.
+    </p>
+
+    <div class="row mt-4">
+
+        <!-- FILTER SIDEBAR -->
+
+        <div class="col-md-3 text-center">
+
+            <h5 class="mb-3">Filter by Specialization</h5>
+
+            <div class="doctor-filter">
+
+                <a asp-controller="Doctors"
+                   asp-action="Index"
+                   class="filter-item">
+                    All Doctors
+                </a>
+
+                <a href="?specialization=General physician"
+                   class="filter-item">
+                    General physician
+                </a>
+
+                <a href="?specialization=Gynecologist"
+                   class="filter-item">
+                    Gynecologist
+                </a>
+
+                <a href="?specialization=Dermatologist"
+                   class="filter-item">
+                    Dermatologist
+                </a>
+
+                <a href="?specialization=Pediatricians"
+                   class="filter-item">
+                    Pediatricians
+                </a>
+
+                <a href="?specialization=Neurologist"
+                   class="filter-item">
+                    Neurologist
+                </a>
+
+                <a href="?specialization=Gastroenterologist"
+                   class="filter-item">
+                    Gastroenterologist
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- DOCTORS GRID -->
+
+        <div class="col-md-9">
+
+            <div class="row">
+
+                @foreach (var doc in Model)
+                {
+
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4 ">
+                        <a asp-controller="Doctors" asp-action="Details" asp-route-id="@doc.DoctorID" class="text-decoration-none">
+
+                            <div class="doctor-card">
+
+                                <img src="@doc.ImageUrl" class="doctor-img" />
+
+                                <div class="doctor-info">
+
+                                    @if (doc.Status == "Available")
+                                    {
+                                        <div class="doctor-status text-success">
+                                            <span class="status-dot" style="background:green;"></span>
+                                            <span>Available</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="doctor-status text-danger">
+                                            <span class="status-dot" style="background:red;"></span>
+                                            <span>Unavailable</span>
+                                        </div>
+                                    }
+
+                                    <h6 class="doctor-name">
+                                        @doc.Name
+                                    </h6>
+
+                                    <p class="doctor-special">
+                                        @doc.Specialization
+                                    </p>
+
+                                </div>
+
+                            </div>
+                        </a>
+
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

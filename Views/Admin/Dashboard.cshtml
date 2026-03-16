@@ -1,0 +1,59 @@
+﻿@model List<HospitalAppointmentSystem.Models.Doctor>
+
+<h2 class="mb-4">Admin Dashboard</h2>
+
+<a asp-action="CreateDoctor" class="btn btn-success mb-3">
+    Add Doctor
+</a>
+
+<table class="table table-bordered">
+
+    <thead>
+        <tr class="text-center">
+            <th>Name</th>
+            <th>Email</th>
+            <th>Specialization</th>
+            <th>Fee</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var doctor in Model)
+        {
+            <tr class="text-center">
+
+                <td>@doctor.Name</td>
+                <td>@doctor.Email</td>
+                <td>@doctor.Specialization</td>
+                <td>@doctor.AppointmentFee</td>
+
+                <td class="text-center">
+
+                    <a asp-controller="Doctors"
+                       asp-action="Details" asp-route-id="@doctor.DoctorID"
+                       class="btn btn-info btn-sm">
+                        View
+                    </a>
+
+                    <a asp-action="EditDoctor"
+                       asp-route-id="@doctor.DoctorID"
+                       class="btn btn-primary btn-sm">
+                        Edit
+                    </a>
+
+                    <a asp-action="DeleteDoctor"
+                       asp-route-id="@doctor.DoctorID"
+                       class="btn btn-danger btn-sm">
+                        Delete
+                    </a>
+
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+
+</table>

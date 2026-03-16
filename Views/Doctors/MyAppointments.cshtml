@@ -1,0 +1,117 @@
+﻿@model List<AppointmentViewModel>
+
+<style>
+
+	.appointment-card {
+		border-bottom: 1px solid #eee;
+		padding: 25px 0;
+	}
+
+	.doc-img {
+		width: 120px;
+		height: 120px;
+		object-fit: cover;
+		border-radius: 10px;
+	}
+
+	.status {
+		padding: 6px 18px;
+		border-radius: 20px;
+		font-size: 14px;
+	}
+
+	.pending {
+		background: #fff3cd;
+		color: #856404
+	}
+
+	.accepted {
+		background: #d4edda;
+		color: #155724
+	}
+
+	.cancelled {
+		background: #f8d7da;
+		color: #721c24
+	}
+
+	.done {
+		background: #d1ecf1;
+		color: #0c5460
+	}
+
+</style>
+
+<div class="container mt-5">
+
+	<h4 class="mb-4">My appointments</h4>
+
+	@foreach (var a in Model)
+	{
+
+		<div class="row appointment-card align-items-center">
+
+			<div class="col-md-2">
+				<img src="@a.ImageUrl" class="doc-img" />
+			</div>
+
+			<div class="col-md-7">
+
+				<h5>@a.DoctorName</h5>
+				<p class="text-muted">@a.Specialization</p>
+
+				<p>
+					<b>Date </b>
+					@a.AppointmentDate.ToString("dd MMM yyyy")
+					
+				</p>
+				<p>
+					<b>Time:</b>
+					@a.AppointmentTime
+				</p>
+
+			</div>
+
+			<div class="col-md-3 text-end">
+
+				@if (a.Status == "Pending")
+				{
+					<button class="btn btn-warning w-100 mb-2">
+						Pending
+					</button>
+
+					<a asp-action="CancelAppointment"
+					   asp-route-id="@a.AppointmentID"
+					   class="btn btn-outline-danger w-100">
+						Cancel Appointment
+					</a>
+				}
+
+				@if (a.Status == "Accepted")
+				{
+					<button class="btn btn-success w-100">
+						Accepted
+					</button>
+				}
+
+				@if (a.Status == "Cancelled")
+				{
+					<button class="btn btn-danger w-100">
+						Appointment Cancelled
+					</button>
+				}
+
+				@if (a.Status == "Done")
+				{
+					<button class="btn btn-info w-100">
+						Completed
+					</button>
+				}
+
+			</div>
+
+		</div>
+
+	}
+
+</div>

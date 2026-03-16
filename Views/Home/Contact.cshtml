@@ -1,0 +1,169 @@
+﻿@{
+    ViewData["Title"] = "Contact";
+}
+
+<style>
+
+    /* Section spacing */
+
+    .section-space {
+        margin-top: 80px;
+    }
+
+    /* Image hover */
+
+    .contact-img {
+        border-radius: 12px;
+        transition: all 0.4s ease;
+    }
+
+        .contact-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+    /* Contact card */
+
+    .contact-card {
+        padding: 30px;
+        border-radius: 12px;
+        border: 1px solid #eee;
+        transition: all 0.3s ease;
+    }
+
+        .contact-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+    /* Button hover */
+
+    .contact-btn {
+        transition: all 0.3s ease;
+    }
+
+        .contact-btn:hover {
+            background: black;
+            color: white;
+            transform: scale(1.05);
+        }
+
+    /* Form hover */
+
+    .form-control {
+        transition: all 0.3s ease;
+    }
+
+        .form-control:focus {
+            box-shadow: 0 0 10px rgba(13,110,253,0.3);
+            border-color: #0d6efd;
+        }
+
+</style>
+
+
+<div class="container">
+
+
+    <!-- TITLE -->
+
+    <div class="text-center section-space">
+
+        <h2 class="text-secondary">
+
+            CONTACT <span class="fw-bold text-dark">US</span>
+
+        </h2>
+
+    </div>
+
+
+    <!-- CONTACT SECTION -->
+
+    <div class="row align-items-center section-space">
+
+        <div class="col-md-4 text-center">
+
+            <img src="https://prescripto.vercel.app/assets/contact_image-IJu_19v_.png"
+                 class="img-fluid contact-img">
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="contact-card">
+
+                <h5 class="fw-bold text-secondary">OUR OFFICE</h5>
+
+                <p class="text-muted">
+
+                    12021 Willms Station <br>
+                    Suite 999, Washington, USA
+
+                </p>
+
+                <p class="text-muted">
+
+                    Tel: 123-456-7890 <br>
+                    Email: hospital@gmail.com
+
+                </p>
+
+                <h5 class="fw-bold text-secondary mt-4">
+
+                    CAREERS AT PRESCRIPTO
+
+                </h5>
+
+                <p class="text-muted">
+
+                    Learn more about our teams and job openings.
+
+                </p>
+
+                <button class="btn btn-outline-dark contact-btn">
+
+                    Explore Jobs
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- CONTACT FORM -->
+
+        <div class="col-md-4">
+
+            <div class="contact-card">
+
+                <h5 class="fw-bold mb-3">Send Message</h5>
+
+                <form>
+
+                    <input type="text" class="form-control mb-3" placeholder="Your Name">
+
+                    <input type="email" class="form-control mb-3" placeholder="Email">
+
+<textarea class="form-control mb-3" rows="4"
+          placeholder="Your Message"></textarea>
+
+                    <button class="btn btn-primary w-100">
+
+                        Send Message
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+</div>

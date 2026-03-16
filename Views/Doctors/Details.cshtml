@@ -1,0 +1,328 @@
+﻿@model HospitalAppointmentSystem.Models.Doctor
+<style>
+
+	/* IMAGE BOX */
+
+	.doctor-img-box {
+		width: 100%;
+		max-width: 320px;
+		height: 320px;
+		background: linear-gradient(135deg,#6a7df0,#4f6ef7);
+		border-radius: 12px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+		cursor: pointer;
+	}
+
+		.doctor-img-box:hover {
+			transform: scale(1.05);
+			box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+		}
+
+
+	.doctor-img {
+		width: 80%;
+		object-fit: contain;
+		max-width: 260px;
+		border-radius: 10px;
+	}
+
+	
+
+
+	/* DOCTOR DETAILS BOX */
+
+	.doctor-info-box {
+		border: 1px solid #ddd;
+		border-radius: 12px;
+		padding: 40px;
+		background: white;
+		box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+		transition: 0.3s;
+	}
+
+	.doctor-info-box:hover {
+		box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+	}
+
+
+	/* NAME */
+
+	.doctor-name {
+		font-weight: 600;
+		font-size: 30px;
+		color: #333;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.verified-icon {
+		color: #4f6ef7;
+		font-size: 18px;
+	}
+
+
+	/* SPECIALIZATION */
+
+	.doctor-special {
+		color: #6c757d;
+		font-size: 16px;
+		margin-top: 5px;
+	}
+
+	.exp-badge {
+		border: 1px solid #ddd;
+		padding: 4px 10px;
+		border-radius: 20px;
+		font-size: 13px;
+		margin-left: 10px;
+		background: #f8f9fa;
+	}
+
+
+	/* ABOUT */
+
+	.about-title {
+		margin-top: 20px;
+		font-weight: 600;
+	}
+
+	.about-text {
+		color: #6c757d;
+		line-height: 1.7;
+		margin-top: 5px;
+	}
+
+
+	/* FEE */
+
+	.fee-text {
+		margin-top: 20px;
+		font-weight: 600;
+		color: #444;
+	}
+	.btn-outline-primary:hover {
+		background: #0d6efd;
+		color: white;
+	}
+
+	.btn-outline-success:hover {
+		background: #198754;
+		color: white;
+	}
+
+	.date-card {
+		width: 70px;
+		height: 70px;
+		border-radius: 50%;
+		border: 1px solid #ddd;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: 0.3s;
+	}
+
+	.date-card:hover {
+		background: #0d6efd;
+		color: white;
+	}
+
+	.date-slot {
+		width: 70px;
+		height: 90px;
+		border-radius: 40px;
+		border: 1px solid #ddd;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		text-decoration: none;
+		color: #444;
+		font-weight: 500;
+		transition: 0.3s;
+	}
+
+	.date-slot:hover {
+		background: #eef3ff;
+	}
+
+	.active-date {
+		background: #4f6ef7;
+		color: white;
+		border: none;
+	}
+
+	.time-slot {
+		padding: 8px 18px;
+		border-radius: 20px;
+		border: 1px solid #ddd;
+		background: white;
+		cursor: pointer;
+		transition: 0.3s;
+	}
+
+	.time-slot:hover {
+		background: #4f6ef7;
+		color: white;
+		border: none;
+	}
+
+	.active-time {
+		background: #4f6ef7;
+		color: white;
+		border: none;
+	}
+
+	.booked {
+		background: #eee;
+		color: #999;
+		cursor: not-allowed;
+	}
+
+	.booking-section {
+		margin-top: 25px;
+	}
+</style>
+
+<div class="container mt-5">
+
+	<div class="row g-0 align-items-start">
+
+		<!-- Doctor Image -->
+		<div class="col-md-4">
+
+			<div class="doctor-img-box">
+				<img src="@Model.ImageUrl" class="doctor-img">
+			</div>
+
+		</div>
+
+
+		<!-- Doctor Details + Booking Slots -->
+		<div class="col-md-8">
+
+			<!-- Doctor Details Box -->
+			<div class="doctor-info-box">
+
+				<h2 class="doctor-name">
+					@Model.Name
+					<span class="verified-icon">✔</span>
+				</h2>
+
+				<p class="doctor-special">
+					MBBS - @Model.Specialization
+					<span class="exp-badge">@Model.Experience</span>
+				</p>
+
+				<h6 class="about-title">About ⓘ</h6>
+
+				<p class="about-text">
+					@Model.About
+				</p>
+
+				<h5 class="fee-text">
+					Appointment fee: ₹@Model.AppointmentFee
+				</h5>
+
+			</div>
+
+			@if (TempData["Error"] != null)
+			{
+				<div class="alert alert-danger mt-3">
+					@TempData["Error"]
+				</div>
+			}
+
+			<!-- Booking Slots Section -->
+			<div class="booking-section mt-4">
+
+				<h5>Booking slots</h5>
+
+				<!-- Date slots -->
+				<div class="d-flex gap-3 mt-3">
+
+					@foreach (DateTime date in ViewBag.Dates)
+					{
+						var isActive = ViewBag.SelectedDate != null &&
+						((DateTime)ViewBag.SelectedDate).Date == date.Date;
+
+						<a asp-action="Details"
+						   asp-route-id="@Model.DoctorID"
+						   asp-route-selectedDate="@date.ToString("yyyy-MM-dd")"
+						   class="date-slot @(isActive ? "active-date" : "")">
+
+							<div>@date.ToString("ddd").ToUpper()</div>
+							<div>@date.Day</div>
+
+						</a>
+					}
+
+				</div>
+
+
+				<!-- Time slots -->
+				@if (ViewBag.SelectedDate != null)
+				{
+
+					<form asp-action="Book" method="post">
+
+						<input type="hidden" name="doctorId" value="@Model.DoctorID">
+						<input type="hidden" name="date" value="@ViewBag.SelectedDate">
+						<input type="hidden" name="time" id="selectedTime">
+
+						<div class="d-flex flex-wrap gap-2 mt-4">
+
+							@foreach (var time in ViewBag.Times)
+							{
+								bool isBooked = ViewBag.BookedTimes.Contains(time);
+
+								<button type="button"
+										class="time-slot @(isBooked ? "booked" : "")"
+										onclick="selectTime('@time')"
+										@(isBooked ? "disabled" : "")>
+
+									@time
+
+								</button>
+							}
+
+						</div>
+
+
+						<div class="mt-4">
+							<button id="bookBtn" class="btn btn-primary px-5 py-2 rounded-pill" disabled>
+								Book Appointment
+							</button>
+						</div>
+
+					</form>
+
+				}
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+<script>
+
+	function selectTime(time)
+	{
+		document.getElementById("selectedTime").value = time;
+
+		document.querySelectorAll(".time-slot").forEach(btn => {
+			btn.classList.remove("active-time");
+		});
+
+		event.target.classList.add("active-time");
+		document.getElementById("bookBtn").disabled = false;
+	}
+
+</script>

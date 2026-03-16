@@ -1,0 +1,84 @@
+﻿@model List<HospitalAppointmentSystem.Models.ViewModels.DoctorAppointmentViewModel>
+
+<div class="container mt-4">
+
+	<h3>Doctor Dashboard</h3>
+
+	<table class="table table-bordered">
+
+		<thead>
+			<tr>
+				<th>Patient</th>
+				<th>Email</th>
+				<th>Date</th>
+				<th>Time</th>
+				<th>Status</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+
+		<tbody>
+
+			@if (!Model.Any())
+			{
+				<tr>
+					<td colspan="5" class="text-center text-muted">
+						No appointments found
+					</td>
+				</tr>
+			}
+
+			@foreach (var a in Model)
+			{
+				<tr>
+
+					<td>@a.PatientName</td>
+
+					<td>@a.PatientEmail</td>
+
+					<td>@a.AppointmentDate.ToString("dd MMM yyyy")</td>
+
+					<td>@a.AppointmentTime</td>
+
+					<td>@a.Status</td>
+
+					<td>
+
+						@if (a.Status == "Pending")
+						{
+							<a asp-action="Accept"
+							   asp-route-id="@a.AppointmentID"
+							   class="btn btn-success btn-sm">Accept</a>
+
+							<a asp-action="Reject"
+							   asp-route-id="@a.AppointmentID"
+							   class="btn btn-danger btn-sm">Reject</a>
+						}
+
+						@if (a.Status == "Accepted")
+						{
+							<a asp-action="Done"
+							   asp-route-id="@a.AppointmentID"
+							   class="btn btn-primary btn-sm">Done</a>
+						}
+
+						@if (a.Status == "Cancelled")
+						{
+							<span class="badge bg-danger">Cancelled</span>
+						}
+
+						@if (a.Status == "Done")
+						{
+							<span class="badge bg-success">Completed</span>
+						}
+
+					</td>
+
+				</tr>
+			}
+
+		</tbody>
+
+	</table>
+
+</div>

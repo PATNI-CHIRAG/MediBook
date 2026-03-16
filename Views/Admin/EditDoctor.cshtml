@@ -1,0 +1,73 @@
+﻿@model HospitalAppointmentSystem.Models.Doctor
+
+<h3 class="mb-4">Edit Doctor</h3>
+
+<div class="mb-3">
+	<a asp-controller="Admin"
+	   asp-action="Dashboard"
+	   class="btn btn-outline-dark rounded-pill px-4">
+		← Back 
+	</a>
+</div>
+
+<form asp-action="EditDoctor" method="post">
+
+	<input type="hidden" asp-for="DoctorID" />
+
+	<div class="row">
+
+		<div class="col-md-6 mb-3">
+			<label>Name</label>
+			<input asp-for="Name" class="form-control" required/>
+		</div>
+
+		<div class="col-md-6 mb-3">
+			<label>Email</label>
+			<input asp-for="Email" class="form-control" required />
+		</div>
+
+		<div class="col-md-6 mb-3">
+			<label>Password</label>
+			<input asp-for="Password" class="form-control" required />
+		</div>
+
+		<div class="col-md-6 mb-3">
+			<label>Specialization</label>
+			<input asp-for="Specialization" class="form-control" required  />
+		</div>
+
+		<div class="col-md-6 mb-3">
+			<label>Experience</label>
+			<input asp-for="Experience" class="form-control" required />
+		</div>
+
+		<div class="col-md-6 mb-3">
+			<label>Appointment Fee</label>
+			<input asp-for="AppointmentFee" class="form-control" required  />
+		</div>
+
+		<div class="col-md-12 mb-3">
+			<label>About</label>
+<textarea asp-for="About" class="form-control" required></textarea>
+		</div>
+
+		<div class="col-md-6 mb-3">
+			<label>Status</label>
+			<select asp-for="Status" class="form-control" required>
+				<option value="Available">Available</option>
+				<option value="Unavailable">Unavailable</option>
+			</select>
+		</div>
+
+		<div class="col-md-6 mb-3">
+			<label>Image URL</label>
+			<input asp-for="ImageUrl" class="form-control" required />
+		</div>
+
+	</div>
+
+	<button class="btn btn-primary">
+		Update Doctor
+	</button>
+
+</form>
