@@ -1,4 +1,4 @@
-# MediBook - Hospital Appointment System
+# MediBook - Hospital Appointment Booking System
 
 ## Project Description
 MediBook is a Hospital Appointment System built using ASP.NET Core and SQL Server.
